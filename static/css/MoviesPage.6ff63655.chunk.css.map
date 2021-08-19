@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/views/MoviesPage/MoviesPage.module.css"],"names":[],"mappings":"AAAA,gCACE,gBACF","file":"MoviesPage.6ff63655.chunk.css","sourcesContent":[".searchButton {\n  margin-left: 10px;\n}\n"]}
