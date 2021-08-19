@@ -1,15 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useRouteMatch, useParams, NavLink } from "react-router-dom";
-import { ApiMovieFetch } from "../../services/fetch";
-import { Route } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
-import Cast from "../../views/MovieDetailsPage/Cast/Cast";
-import Reviews from "../../views/MovieDetailsPage/Reviews/Reviews";
+import { ApiMovieFetch } from "../../services/fetch";
+import Button from "../../components/Button/Button";
+
+import { Route } from "react-router-dom";
+import style from "./MovieDetailsPage.module.css";
+
+// import Cast from "../../views/MovieDetailsPage/Cast/Cast";
+// import Reviews from "../../views/MovieDetailsPage/Reviews/Reviews";
+
+const Cast = lazy(() =>
+  import(
+    "../../views/MovieDetailsPage/Cast/Cast" /* webpackChunkName: "Cast" */
+  )
+);
+const Reviews = lazy(() =>
+  import(
+    "../../views/MovieDetailsPage/Reviews/Reviews" /* webpackChunkName: "Reviews" */
+  )
+);
 
 function MovieDetailsPage() {
   const [film, setFilm] = useState([]);
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
+
+  const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     ApiMovieFetch(movieId)
@@ -18,18 +37,24 @@ function MovieDetailsPage() {
   }, [movieId]);
   //   console.log(film);
 
+  const onGoBack = () => {
+    history.push(location?.state?.from ?? "/");
+  };
+
   return (
     <>
+      <Button onClick={onGoBack} />
+
       {film && (
         <>
-          <section>
-            <div>
+          <section className={style.movieDetailsSection}>
+            <div className={style.movieDetailsPicture}>
               <img
-                src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w300/${film.poster_path}`}
                 alt={film.title}
               />
             </div>
-            <div>
+            <div className={style.movieDetailsInfo}>
               <h2>
                 {film.title}({film.release_date})
               </h2>
@@ -44,22 +69,38 @@ function MovieDetailsPage() {
               </ul>
             </div>
           </section>
-          <h3>Additional Information</h3>
-          <nav>
-            <NavLink exact to={`${url}/cast`}>
-              Cast
-            </NavLink>
-            <NavLink exact to={`${url}/reviews`}>
-              Reviews
-            </NavLink>
-          </nav>
-          {/*  */}
-          <Route path={`${path}/cast`}>
-            <Cast />
-          </Route>
-          <Route path={`${path}/reviews`}>
-            <Reviews />
-          </Route>
+          <section className={style.movieDetailsAdditionalSection}>
+            <h3 className={style.movieDetailsAdditionalHead}>
+              Additional Information
+            </h3>
+            <nav>
+              {/* <NavLink exact to={`${url}/cast`}> */}
+              <NavLink
+                exact
+                to={{ pathname: `${url}/cast`, state: { from: location } }}
+                className={style.movieDetailsCast}
+                activeClassName={style.movieDetailsCastActive}
+              >
+                Cast
+              </NavLink>
+              <NavLink
+                exact
+                to={`${url}/reviews`}
+                className={style.movieDetailsCast}
+                activeClassName={style.movieDetailsCastActive}
+              >
+                Reviews
+              </NavLink>
+            </nav>
+          </section>
+          <Suspense fallback={<h1>LOADING...</h1>}>
+            <Route path={`${path}/cast`}>
+              <Cast />
+            </Route>
+            <Route path={`${path}/reviews`}>
+              <Reviews />
+            </Route>
+          </Suspense>
         </>
       )}
     </>

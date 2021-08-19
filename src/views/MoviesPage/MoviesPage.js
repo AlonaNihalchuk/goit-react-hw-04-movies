@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { ApiSearchFetch } from "../../services/fetch";
+import style from "./MoviesPage.module.css";
+// import Button from "../../components/Button/Button";
+
 // import HomePage from "../HomePage/HomePage";
 
 function MoviesPage() {
   const [query, setQuery] = useState("");
   const [films, setFilms] = useState([]);
+
+  const history = useHistory();
+  const location = useLocation();
+
+  const getQuery = new URLSearchParams(location.search).get("query") ?? "";
 
   const handleFilmChange = (e) => {
     // setQuery(e.target.value.toLowerCase());
@@ -13,15 +21,15 @@ function MoviesPage() {
   };
 
   useEffect(() => {
-    if (query === "") {
+    if (getQuery === "") {
       return;
     }
-    ApiSearchFetch(query)
+    ApiSearchFetch(getQuery)
       .then(({ results }) => {
         setFilms([...results]);
       })
       .catch((error) => console.log("error", error));
-  }, [query]);
+  }, [getQuery]);
 
   // if (pictureName.trim() === "") {
   //   alert("введите слово");
@@ -50,20 +58,26 @@ function MoviesPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     reset();
+    history.push({ ...location, search: `query=${query}` });
   };
+
+  // const onGoBack = () => {
+  //   history.push(location?.state?.from ?? "/");
+  // };
 
   return (
     <section>
+      {/* <Button onClick={onGoBack} /> */}
       <form onSubmit={handleSubmit}>
         <input
-          value={query}
+          // value={query}
           onChange={handleFilmChange}
           // autoComplete="off"
           // type="text"
           // autoFocus
           placeholder="Search films"
         />
-        <button type="submit">
+        <button type="submit" className={style.searchButton}>
           <span>search</span>
         </button>
       </form>

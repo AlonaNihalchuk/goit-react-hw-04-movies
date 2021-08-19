@@ -1,6 +1,7 @@
 import { ApiActorsFetch } from "../../../services/fetch";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import style from "./Cast.module.css";
 
 function Cast() {
   const [actors, setActors] = useState([]);
@@ -18,10 +19,10 @@ function Cast() {
 
   return (
     <>
-      <ul>
+      <ul className={style.castList}>
         {actors &&
           actors.map((actor) => (
-            <li key={actor.id}>
+            <li key={actor.id} className={style.castItem}>
               <img
                 src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
                 alt={actor.name}

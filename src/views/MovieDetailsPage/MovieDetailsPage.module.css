@@ -1,0 +1,30 @@
+.movieDetailsSection {
+  display: flex;
+}
+.movieDetailsPicture {
+  margin-right: 20px;
+}
+.movieDetailsInfo {
+  width: 650px;
+}
+.movieDetailsAdditionalSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.movieDetailsAdditionalHead {
+  margin-right: 30px;
+}
+.movieDetailsCast {
+  margin-right: 20px;
+  text-transform: uppercase;
+}
+.movieDetailsCast:hover,
+:focus {
+  color: blue;
+}
+.movieDetailsCastActive {
+  color: blue;
+}
