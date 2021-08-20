@@ -1,7 +1,7 @@
-import { ApiActorsFetch } from "../../../services/fetch";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import style from "./Cast.module.css";
+import { ApiActorsFetch } from "../../../services/fetch";
 
 function Cast() {
   const [actors, setActors] = useState([]);
@@ -15,7 +15,7 @@ function Cast() {
       .catch((error) => console.log("error", error));
   }, [movieId]);
 
-  console.log(actors);
+  // console.log(actors);
 
   return (
     <>

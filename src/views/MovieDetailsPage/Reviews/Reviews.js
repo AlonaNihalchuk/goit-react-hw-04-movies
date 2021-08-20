@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { ApiReviewsFetch } from "../../../services/fetch";
 import { useParams } from "react-router-dom";
+import { ApiReviewsFetch } from "../../../services/fetch";
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -13,7 +13,7 @@ function Reviews() {
       .catch((error) => console.log("error", error));
   }, [movieId]);
 
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <>
       {reviews.length ? (

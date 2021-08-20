@@ -10,11 +10,6 @@ function ApiTrendingFetch() {
       return Promise.reject(new Error("something went wrong"));
     }
   );
-  //   .then(
-  //   (res) => {
-  //     return res.json();
-  //   }
-  // );
 }
 
 function ApiSearchFetch(query) {
@@ -26,9 +21,6 @@ function ApiSearchFetch(query) {
     }
     return Promise.reject(new Error("something went wrong"));
   });
-  //   .then((res) => {
-  //   return res.json();
-  // });
 }
 
 function ApiMovieFetch(id) {
@@ -40,9 +32,6 @@ function ApiMovieFetch(id) {
     }
     return Promise.reject(new Error("something went wrong"));
   });
-  //   .then((res) => {
-  //   return res.json();
-  // });
 }
 
 function ApiActorsFetch(id) {
@@ -54,9 +43,6 @@ function ApiActorsFetch(id) {
     }
     return Promise.reject(new Error("something went wrong"));
   });
-  //   .then((res) => {
-  //   return res.json();
-  // });
 }
 
 function ApiReviewsFetch(id) {
@@ -68,9 +54,6 @@ function ApiReviewsFetch(id) {
     }
     return Promise.reject(new Error("something went wrong"));
   });
-  //   .then((res) => {
-  //   return res.json();
-  // });
 }
 export {
   ApiTrendingFetch,

@@ -1,13 +1,13 @@
-import "./App.css";
 import { lazy, Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
-// import Navigation from "../Navigation/Navigation";
+import { Route, Switch, Redirect } from "react-router-dom";
+
+import "./App.css";
 import Header from "../Header/Header";
 import Container from "../Container/Container";
+
 const HomePage = lazy(() =>
   import("../../views/HomePage/HomePage.js" /* webpackChunkName: "HomePage" */)
 );
-
 const MoviesPage = lazy(() =>
   import(
     "../../views/MoviesPage/MoviesPage.js" /* webpackChunkName: "MoviesPage" */
@@ -18,16 +18,6 @@ const MovieDetailsPage = lazy(() =>
     "../../views/MovieDetailsPage/MovieDetailsPage.js" /* webpackChunkName: "MovieDetailsPage" */
   )
 );
-const NotFoundPage = lazy(() =>
-  import(
-    "../../views/NotFoundPage/NotFoundPage.js" /* webpackChunkName: "NotFoundPage" */
-  )
-);
-
-// import HomePage from "../../views/HomePage/HomePage";
-// import MoviesPage from "../../views/MoviesPage/MoviesPage";
-// import MovieDetailsPage from "../../views/MovieDetailsPage/MovieDetailsPage";
-// import NotFoundPage from "../../views/NotFoundPage/NotFoundPage";
 
 function App() {
   return (
@@ -45,10 +35,7 @@ function App() {
           <Route path="/movies/:movieId">
             <MovieDetailsPage />
           </Route>
-          <Route>
-            <NotFoundPage />
-          </Route>
-          {/* <Route component={HomePage} /> */}
+          <Redirect to="/" />
         </Switch>
       </Suspense>
     </Container>

@@ -1,15 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { useRouteMatch, useParams, NavLink } from "react-router-dom";
 import { useHistory, useLocation } from "react-router-dom";
+import { Route } from "react-router-dom";
 
+import style from "./MovieDetailsPage.module.css";
 import { ApiMovieFetch } from "../../services/fetch";
 import Button from "../../components/Button/Button";
-
-import { Route } from "react-router-dom";
-import style from "./MovieDetailsPage.module.css";
-
-// import Cast from "../../views/MovieDetailsPage/Cast/Cast";
-// import Reviews from "../../views/MovieDetailsPage/Reviews/Reviews";
 
 const Cast = lazy(() =>
   import(
@@ -35,7 +31,6 @@ function MovieDetailsPage() {
       .then(setFilm)
       .catch((error) => console.log("error", error));
   }, [movieId]);
-  //   console.log(film);
 
   const onGoBack = () => {
     history.push(location?.state?.from ?? "/");
@@ -74,7 +69,6 @@ function MovieDetailsPage() {
               Additional Information
             </h3>
             <nav>
-              {/* <NavLink exact to={`${url}/cast`}> */}
               <NavLink
                 exact
                 to={{ pathname: `${url}/cast`, state: { from: location } }}

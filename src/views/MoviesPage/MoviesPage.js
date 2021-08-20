@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { ApiSearchFetch } from "../../services/fetch";
 import style from "./MoviesPage.module.css";
-// import Button from "../../components/Button/Button";
-
-// import HomePage from "../HomePage/HomePage";
 
 function MoviesPage() {
   const [query, setQuery] = useState("");
@@ -16,7 +13,6 @@ function MoviesPage() {
   const getQuery = new URLSearchParams(location.search).get("query") ?? "";
 
   const handleFilmChange = (e) => {
-    // setQuery(e.target.value.toLowerCase());
     setQuery(e.target.value);
   };
 
@@ -31,26 +27,6 @@ function MoviesPage() {
       .catch((error) => console.log("error", error));
   }, [getQuery]);
 
-  // if (pictureName.trim() === "") {
-  //   alert("введите слово");
-  //   return;
-  // }
-  // onSubmit(pictureName);
-  // setPictureName("");
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (query === "") {
-  //     return;
-  //   }
-  //   setPage(1);
-  //   setFilms([]);
-  //   history.push({
-  //     ...location,
-  //     search: `query=${query}`,
-  //   });
-  //   // console.log(`location`, location);
-  // };
   const reset = () => {
     setQuery("");
   };
@@ -61,27 +37,21 @@ function MoviesPage() {
     history.push({ ...location, search: `query=${query}` });
   };
 
-  // const onGoBack = () => {
-  //   history.push(location?.state?.from ?? "/");
-  // };
-
   return (
     <section>
-      {/* <Button onClick={onGoBack} /> */}
       <form onSubmit={handleSubmit}>
         <input
           // value={query}
           onChange={handleFilmChange}
-          // autoComplete="off"
-          // type="text"
-          // autoFocus
+          autoComplete="off"
+          type="text"
+          autoFocus
           placeholder="Search films"
         />
         <button type="submit" className={style.searchButton}>
           <span>search</span>
         </button>
       </form>
-      {/* тут может или должен быть переиспользуемый компонент списка фильмов HomePage */}
       <ul>
         {films &&
           films.map((film) => (
@@ -92,8 +62,6 @@ function MoviesPage() {
             </li>
           ))}
       </ul>
-      {/* не получается */}
-      {/* {query && <HomePage />} */}
     </section>
   );
 }
