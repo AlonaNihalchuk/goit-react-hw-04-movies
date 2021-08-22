@@ -36,7 +36,6 @@ function MoviesPage() {
     reset();
     history.push({ ...location, search: `query=${query}` });
   };
-  console.log(location);
   return (
     <section>
       <form onSubmit={handleSubmit}>
