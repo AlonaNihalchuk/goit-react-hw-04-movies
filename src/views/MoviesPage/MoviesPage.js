@@ -36,7 +36,7 @@ function MoviesPage() {
     reset();
     history.push({ ...location, search: `query=${query}` });
   };
-
+  console.log(location);
   return (
     <section>
       <form onSubmit={handleSubmit}>
@@ -56,7 +56,12 @@ function MoviesPage() {
         {films &&
           films.map((film) => (
             <li key={film.id}>
-              <Link to={{ pathname: `/movies/${film.id}` }}>
+              <Link
+                to={{
+                  pathname: `/movies/${film.id}`,
+                  state: { from: location },
+                }}
+              >
                 {film.original_title}
               </Link>
             </li>

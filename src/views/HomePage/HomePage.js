@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { ApiTrendingFetch } from "../../services/fetch";
 
 function HomePage() {
-  const location = useLocation();
   const [films, setFilm] = useState([]);
   useEffect(() => {
     ApiTrendingFetch()
@@ -19,9 +18,7 @@ function HomePage() {
       {films &&
         films.map((film) => (
           <li key={film.id}>
-            <Link
-              to={{ pathname: `/movies/${film.id}`, state: { from: location } }}
-            >
+            <Link to={{ pathname: `/movies/${film.id}` }}>
               {film.original_title}
             </Link>
           </li>

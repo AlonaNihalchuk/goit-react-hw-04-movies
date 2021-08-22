@@ -38,10 +38,9 @@ function MovieDetailsPage() {
 
   return (
     <>
-      <Button onClick={onGoBack} />
-
       {film && (
         <>
+          <Button onClick={onGoBack} />
           <section className={style.movieDetailsSection}>
             <div className={style.movieDetailsPicture}>
               <img
@@ -71,7 +70,10 @@ function MovieDetailsPage() {
             <nav>
               <NavLink
                 exact
-                to={{ pathname: `${url}/cast`, state: { from: location } }}
+                to={{
+                  pathname: `${url}/cast`,
+                  state: { from: location?.state?.from ?? "/" },
+                }}
                 className={style.movieDetailsCast}
                 activeClassName={style.movieDetailsCastActive}
               >
@@ -79,7 +81,10 @@ function MovieDetailsPage() {
               </NavLink>
               <NavLink
                 exact
-                to={`${url}/reviews`}
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: { from: location?.state?.from ?? "/" },
+                }}
                 className={style.movieDetailsCast}
                 activeClassName={style.movieDetailsCastActive}
               >
